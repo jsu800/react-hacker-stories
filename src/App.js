@@ -20,14 +20,17 @@ function App() {
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
-          {
-            list.map(item =>
-              <div><a href={item.url}>{item.title}</a></div>)
-          }
+          <List />
         </p>
       </header>
     </div>
   );
 }
+
+function List() {
+  return list.map(item =>
+    <div><a href={item.url}>{item.title}</a></div>)
+}
+
 
 export default App;
