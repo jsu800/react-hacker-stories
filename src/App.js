@@ -1,7 +1,17 @@
 import logo from './logo.svg';
 import './App.css';
 
-var world_text = "world!!!!!!!!!!!!!!";
+const list = [
+  {
+    title: 'React Homepage',
+    url: 'https://reactjs.org/',
+  },
+  {
+    title: 'Getting Started',
+    url: 'https://reactjs.org/docs/getting-started.html',
+  },
+];
+
 
 function App() {
 
@@ -10,16 +20,11 @@ function App() {
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
-          Hello {world_text}
+          {
+            list.map(item =>
+              <div><a href={item.url}>{item.title}</a></div>)
+          }
         </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
       </header>
     </div>
   );
