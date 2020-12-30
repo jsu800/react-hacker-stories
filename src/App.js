@@ -25,15 +25,16 @@ const App = () => {
     console.log(event);
   };
 
+  const hello_world = new Sentence('Hello', 'World!');
+  const react_rocks = new Sentence('React', 'rocks!');
+
   return (
     <div className="App">
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
           {/* creating/instantiating an instance of List component */}
-          <List />
-          {/* creating/instantiating ANOTHER instance of List component */}
-          <List />
+          <List first={hello_world} second={react_rocks} />
         </p>
         <div>
           <label htmlFor="Check">Check: </label>
@@ -46,14 +47,12 @@ const App = () => {
 };
 
 
-const List = () => {
-  const hello_world = new Sentence('Hello', 'World!');
-  const react_rocks = new Sentence('React', 'rocks!');
+const List = props => {
   return (
     <div>
-      {hello_world.getSentence()}
+      {props.first.getSentence()}
       <hr />
-      {react_rocks.getSentence()}
+      {props.second.getSentence()}
     </div>
   );
 };
