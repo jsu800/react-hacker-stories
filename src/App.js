@@ -19,18 +19,32 @@ class Sentence {
 // const name() => { ... } 
 
 
-const App = () =>
-  <div className="App">
-    <header className="App-header">
-      <img src={logo} className="App-logo" alt="logo" />
-      <p>
-        {/* creating/instantiating an instance of List component */}
-        <List />
-        {/* creating/instantiating ANOTHER instance of List component */}
-        <List />
-      </p>
-    </header>
-  </div>
+const App = () => {
+
+  const handleEvent = event => {
+    console.log(event);
+  };
+
+  return (
+    <div className="App">
+      <header className="App-header">
+        <img src={logo} className="App-logo" alt="logo" />
+        <p>
+          {/* creating/instantiating an instance of List component */}
+          <List />
+          {/* creating/instantiating ANOTHER instance of List component */}
+          <List />
+        </p>
+        <div>
+          <label htmlFor="Check">Check: </label>
+          <input id="check" type="text" onChange={handleEvent} />
+        </div>
+      </header>
+    </div>
+  );
+
+};
+
 
 const List = () => {
   const hello_world = new Sentence('Hello', 'World!');
