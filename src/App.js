@@ -1,78 +1,86 @@
-import logo from './logo.svg';
-import './App.css';
 import React from 'react';
-
-class Sentence {
-  constructor(word1, word2) {
-    this.word1 = word1;
-    this.word2 = word2;
-  }
-
-  getSentence() {
-    return this.word1 + ' ' + this.word2;
-  }
-}
-
-// function declaration 
-// function name() {...}
-
-// arrow function: 
-// const name() => { ... } 
-
 
 const App = () => {
 
-  const handleInput = evt => {
-    console.log(evt.target.value);
-  };
+  // ------------------   DO NOT MODIFY!!! ------------------------
+  // This is your array/list of table of content
+  // ---------------------------------------------------------
+  const toc = [
+    {
+      title: 'React Homepage',
+      url: 'https://reactjs.org/',
+    },
+    {
+      title: 'Getting Started',
+      url: 'https://reactjs.org/docs/getting-started.html',
+    },
+    {
+      title: 'Hello World',
+      url: 'https://reactjs.org/docs/hello-world.html',
+    },
+    {
+      title: 'Introducing JSX',
+      url: 'https://reactjs.org/docs/introducing-jsx.html',
+    },
+    {
+      title: 'Rendering Elements',
+      url: 'https://reactjs.org/docs/rendering-elements.html',
+    }
+  ];
 
-  const hello_world = new Sentence('Hello', 'World!');
-  const react_rocks = new Sentence('React', 'rocks!');
+  // ------------------   DO NOT MODIFY!!! ------------------------
+  // React's useState hook containing the user's current input state
+  // and a state setter when the user's input changes. This assignment
+  // makes use of the classic destructuring mechanism in JavaScript
+  // ---------------------------------------------------------
+  const [searchToC, setToC] = React.useState('');
 
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          {/* creating/instantiating an instance of List component */}
-          <List first={hello_world} second={react_rocks} />
-        </p>
-        <p>
-          <Input onInput = {handleInput} />
-        </p>
-      </header>
-    </div>
-  );
-
-};
-
-const Input = props => {
+  // ---------------------------------------------------------
+  // TODO (A)
+  // Your ToC is being filtered here based on the user input. 
+  // React's asynchronous event callback that copies the user's input 
+  // into the aforementioned state variable in the app.
+  // ---------------------------------------------------------
+  const handleSearch = // ... YOUR CODE HERE
   
-  const handleEvent = evt => {
-    setCheckTerm(evt.target.value);
-    props.onInput(evt);
-  };
-
-  const [checkTerm, setCheckTerm] = React.useState("nothing");
+  // ---------------------------------------------------------
+  // TODO (B)
+  // Your ToC is being filtered based on the user input. HINT: 
+  // You may use the JavaScript's filter() method on array.
+  // ---------------------------------------------------------
+  const searchResults = // ... YOUR CODE HERE
 
   return (
     <div>
-      <label htmlFor="Check">Check: </label>
-      <input id="check" type="text" onChange={handleEvent} />
-      <p>Checking for <b>{checkTerm}</b></p>
-    </div>
-  );
-}
+      <h1>React: A JavaScript library</h1>
 
-const List = props => {
-  return (
-    <div>
-      {props.first.getSentence()}
+      <Search onSearch={handleSearch} />
+
       <hr />
-      {props.second.getSentence()}
+
+      <List results={searchResults} />
     </div>
   );
 };
 
+// ------------------   DO NOT MODIFY!!! ------------------------
+// COMPONENT: SEARCH
+// This component detects the user input and forwards the event 
+// back to the App component to handle.
+// ---------------------------------------------------------
+const Search = props => (
+  <div>
+    <label htmlFor="search">Search: </label>
+    <input id="search" type="text" onChange={props.onSearch} />
+  </div>
+);
+
+// ---------------------------------------------------------
+// TODO (C)
+// COMPONENT: LIST
+// This component renders the filtered search results based 
+// on the user input.
+// ---------------------------------------------------------
+const List = // ... YOUR CODE HERE
 
 export default App;
