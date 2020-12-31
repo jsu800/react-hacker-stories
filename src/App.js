@@ -1,5 +1,6 @@
 import logo from './logo.svg';
 import './App.css';
+import React from 'react';
 
 class Sentence {
   constructor(word1, word2) {
@@ -21,9 +22,11 @@ class Sentence {
 
 const App = () => {
 
-  const handleEvent = event => {
-    console.log(event);
+  const handleEvent = evt => {
+    setCheckTerm(evt.target.value);
   };
+
+  const [checkTerm, setCheckTerm] = React.useState("nothing");
 
   const hello_world = new Sentence('Hello', 'World!');
   const react_rocks = new Sentence('React', 'rocks!');
@@ -39,6 +42,7 @@ const App = () => {
         <div>
           <label htmlFor="Check">Check: </label>
           <input id="check" type="text" onChange={handleEvent} />
+          <p>Checking for <b>{checkTerm}</b></p>
         </div>
       </header>
     </div>
