@@ -53,7 +53,7 @@ const Input = props => {
   return (
     <div>
       <label htmlFor="Check">Check: </label>
-      <input id="check" type="text" onChange={props.onInput} />
+      <input id="check" type="text" value={props.userInput} onChange={props.onInput} />
       <p>Checking for <b>{props.userInput}</b></p>
     </div>
   );
