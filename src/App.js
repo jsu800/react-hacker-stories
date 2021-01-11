@@ -23,12 +23,15 @@ class Sentence {
 const App = () => {
 
   const handleInput = evt => {
+    setCheckTerm(evt.target.value);
     console.log(evt.target.value);
   };
 
   const hello_world = new Sentence('Hello', 'World!');
   const react_rocks = new Sentence('React', 'rocks!');
 
+  const [checkTerm, setCheckTerm] = React.useState("nothing");
+  
   return (
     <div className="App">
       <header className="App-header">
@@ -38,7 +41,7 @@ const App = () => {
           <List first={hello_world} second={react_rocks} />
         </p>
         <p>
-          <Input onInput = {handleInput} />
+          <Input onInput = {handleInput} userInput = {checkTerm} />
         </p>
       </header>
     </div>
@@ -46,20 +49,12 @@ const App = () => {
 
 };
 
-const Input = props => {
-  
-  const handleEvent = evt => {
-    setCheckTerm(evt.target.value);
-    props.onInput(evt);
-  };
-
-  const [checkTerm, setCheckTerm] = React.useState("nothing");
-
+const Input = props => {  
   return (
     <div>
       <label htmlFor="Check">Check: </label>
-      <input id="check" type="text" onChange={handleEvent} />
-      <p>Checking for <b>{checkTerm}</b></p>
+      <input id="check" type="text" onChange={props.onInput} />
+      <p>Checking for <b>{props.userInput}</b></p>
     </div>
   );
 }
