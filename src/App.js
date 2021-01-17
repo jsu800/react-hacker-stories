@@ -1,20 +1,58 @@
 import React from 'react';
 
 const App = () => {
+
+  const toc = [
+    {
+      title: 'React Homepage',
+      url: 'https://reactjs.org/',
+    },
+    {
+      title: 'Getting Started',
+      url: 'https://reactjs.org/docs/getting-started.html',
+    },
+    {
+      title: 'Hello World',
+      url: 'https://reactjs.org/docs/hello-world.html',
+    },
+    {
+      title: 'Introducing JSX',
+      url: 'https://reactjs.org/docs/introducing-jsx.html',
+    },
+    {
+      title: 'Rendering Elements',
+      url: 'https://reactjs.org/docs/rendering-elements.html',
+    }
+  ];
+
   return (
     <div>
-      <Title name="React" />
-      <SubTitle />
+      <h1>React: A JavaScript library</h1>
+
+      // Creating a search component
+      YOUR_CODE_HERE
+
+      <hr />
+
+      // Creating a List component
+      <List results = {toc}/>
     </div>
   );
 };
 
-const Title = props => (
-  <h1>{props.name}</h1>
+const Search = props => (
+  <div>
+    <label htmlFor="search">Search: </label>
+    <input type="text" />
+  </div>
 );
 
-function SubTitle() {
-  return <p>A JavaScript library for building user interfaces.</p>;
-}
+const List = props =>
+  props.results.map(item => (
+    <div>
+      YOUR_CODE_HERE
+    </div>
+  ));
+
 
 export default App;
