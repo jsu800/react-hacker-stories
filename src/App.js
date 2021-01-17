@@ -30,7 +30,17 @@ const App = () => {
   const hello_world = new Sentence('Hello', 'World!');
   const react_rocks = new Sentence('React', 'rocks!');
 
-  const [checkTerm, setCheckTerm] = React.useState("nothing");
+  const [checkTerm, setCheckTerm] = React.useState(
+    localStorage.getItem("input") || "nothing"
+  );
+
+  React.useEffect(
+    ()=> {
+      localStorage.setItem("input", checkTerm);
+    }, 
+    [checkTerm]
+  );
+
   
   return (
     <div className="App">
