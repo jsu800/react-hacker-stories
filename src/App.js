@@ -13,12 +13,12 @@ class Sentence {
   }
 }
 
-// function declaration 
-// function name() {...}
-
-// arrow function: 
-// const name() => { ... } 
-
+// ------------------------------------------------
+// INSERT YOUR TODO SECTION OF CODE BELOW
+// ------------------------------------------------
+const useMyCustomHook = ... {
+...
+};
 
 const App = () => {
 
@@ -30,15 +30,11 @@ const App = () => {
   const hello_world = new Sentence('Hello', 'World!');
   const react_rocks = new Sentence('React', 'rocks!');
 
-  const [checkTerm, setCheckTerm] = React.useState(
-    localStorage.getItem("input") || "nothing"
-  );
-
-  React.useEffect(
-    ()=> {
-      localStorage.setItem("input", checkTerm);
-    }, 
-    [checkTerm]
+  // Your "key" is 'React'
+  // Your "initialState" is 'Redux'
+  const [checkTerm, setCheckTerm] = useMyCustomHook(
+    'React',
+    'Redux'
   );
 
   
