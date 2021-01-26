@@ -59,16 +59,13 @@ const App = () => {
 
 };
 
-const Input = ({onInput, userInput}) => {  
-
-  return (
-    <div>
+const Input = ({onInput, userInput}) => (
+    <>
       <label htmlFor="Check">Check: </label>
       <input id="check" type="text" value={userInput} onChange={onInput} />
       <p>Checking for <b>{userInput}</b></p>
-    </div>
-  );
-}
+    </>
+);
 
 const List = props => {
   return (
