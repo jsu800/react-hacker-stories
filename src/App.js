@@ -35,13 +35,13 @@ const App = () => {
   );
 
   React.useEffect(
-    ()=> {
+    () => {
       localStorage.setItem("input", checkTerm);
-    }, 
+    },
     [checkTerm]
   );
 
-  
+
   return (
     <div className="App">
       <header className="App-header">
@@ -51,7 +51,13 @@ const App = () => {
           <List first={hello_world} second={react_rocks} />
         </p>
         <p>
-          <Input onInput = {handleInput} userInput = {checkTerm} />
+          <Input
+            id = "check"
+            value1 = "Check: "
+            value2 = "Checking for "
+            onInput={handleInput}
+            userInput={checkTerm}
+          />
         </p>
       </header>
     </div>
@@ -59,12 +65,12 @@ const App = () => {
 
 };
 
-const Input = ({onInput, userInput}) => (
-    <>
-      <label htmlFor="Check">Check: </label>
-      <input id="check" type="text" value={userInput} onChange={onInput} />
-      <p>Checking for <b>{userInput}</b></p>
-    </>
+const Input = ({ id, value1, value2, type='text', onInput, userInput }) => (
+  <>
+    <label htmlFor={id}>{value1} </label>
+    <input id={id} type={type} value={userInput} onChange={onInput} />
+    <p>{value2} <b>{userInput}</b></p>
+  </>
 );
 
 const List = props => {
