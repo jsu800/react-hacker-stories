@@ -59,12 +59,13 @@ const App = () => {
 
 };
 
-const Input = props => {  
+const Input = ({onInput, userInput}) => {  
+
   return (
     <div>
       <label htmlFor="Check">Check: </label>
-      <input id="check" type="text" value={props.userInput} onChange={props.onInput} />
-      <p>Checking for <b>{props.userInput}</b></p>
+      <input id="check" type="text" value={userInput} onChange={onInput} />
+      <p>Checking for <b>{userInput}</b></p>
     </div>
   );
 }
