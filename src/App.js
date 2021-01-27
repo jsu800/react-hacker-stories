@@ -1,87 +1,42 @@
-import logo from './logo.svg';
-import './App.css';
-import React from 'react';
+import React, {useState} from 'react';
 
-class Sentence {
-  constructor(word1, word2) {
-    this.word1 = word1;
-    this.word2 = word2;
-  }
-
-  getSentence() {
-    return this.word1 + ' ' + this.word2;
-  }
-}
-
-// function declaration 
-// function name() {...}
-
-// arrow function: 
-// const name() => { ... } 
-
-
+// ----------------------------------------------------
+// DO NOT MODIFY THE APP COMPONENT BELOW 
+// ----------------------------------------------------
 const App = () => {
-
-  const handleInput = evt => {
-    setCheckTerm(evt.target.value);
-    console.log(evt.target.value);
-  };
-
-  const hello_world = new Sentence('Hello', 'World!');
-  const react_rocks = new Sentence('React', 'rocks!');
-
-  const [checkTerm, setCheckTerm] = React.useState(
-    localStorage.getItem("input") || "nothing"
-  );
-
-  React.useEffect(
-    () => {
-      localStorage.setItem("input", checkTerm);
-    },
-    [checkTerm]
-  );
-
-
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          {/* creating/instantiating an instance of List component */}
-          <List first={hello_world} second={react_rocks} />
-        </p>
-        <p>
-          <Input
-            id = "check"
-            value1 = "Check: "
-            value2 = "Checking for "
-            onInput={handleInput}
-            userInput={checkTerm}
-          />
-        </p>
-      </header>
-    </div>
-  );
-
-};
-
-const Input = ({ id, value1, value2, type='text', onInput, userInput }) => (
-  <>
-    <label htmlFor={id}>{value1} </label>
-    <input id={id} type={type} value={userInput} onChange={onInput} />
-    <p>{value2} <b>{userInput}</b></p>
-  </>
-);
-
-const List = props => {
   return (
     <div>
-      {props.first.getSentence()}
-      <hr />
-      {props.second.getSentence()}
+      <DisplayParagraph
+        text={`Singleness of purpose is one of the chief essentials for success in life, no matter what may be one’s aim.`}
+        maxLength={25}
+      />
     </div>
   );
 };
+// ----------------------------------------------------
+// DO NOT MODIFY THE APP COMPONENT ABOVE ^^^
+// ----------------------------------------------------
 
+
+function DisplayParagraph({ text, maxLength }) {
+
+  // ----------------------------------------------------
+  // TODO (A): fill in YOUR_CODE_HERE below. Create a 
+  // state, and initialize it to a boolean value for 
+  // toggling the paragraph into either a long or short form.
+  // HINT: const [...] = useState(...);
+  // ----------------------------------------------------
+  YOUR_CODE_HERE
+
+  // ----------------------------------------------------
+  // TODO (B): fill in YOUR_CODE_HERE below. This is the bulk
+  // of the toggling you need to perform
+  // ----------------------------------------------------
+  return (
+    <div>
+      YOUR_CODE_HERE
+    </div>
+  );
+}
 
 export default App;
