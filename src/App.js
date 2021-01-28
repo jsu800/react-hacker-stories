@@ -16,7 +16,7 @@ const initialBookmarks = [
 const getAsyncBookmarks = () =>
   new Promise(resolve =>
     setTimeout(
-      () => resolve({ data: { bookmarks: initialBookmarks } }),
+      () => resolve({ data: { x: initialBookmarks } }),
       3000
     )
   );
@@ -24,19 +24,26 @@ const getAsyncBookmarks = () =>
 function App() {
 
   const [bookmarks, setBookmarks] = React.useState([]);
+  const [isLoading, setIsLoading] = React.useState(false);
 
-  React.useEffect(() => {
-    getAsyncBookmarks().then(result => {
-      setBookmarks(result.data.bookmarks);
-    });
-  }, []);
+  React.useEffect(
+    () => {
+      setIsLoading(true);
+      getAsyncBookmarks().then(result => {
+        setBookmarks(result.data.x);
+        setIsLoading(false);
+      });      
+    },
+    []);
 
   return (
     <div className="App">
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
-          <List links = {bookmarks} />
+          {isLoading ? (<p>Loading ...</p>) : (
+            <List links={bookmarks} />
+          )}
         </p>
       </header>
     </div>
