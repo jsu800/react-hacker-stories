@@ -1,59 +1,130 @@
-import logo from './logo.svg';
 import './App.css';
 import React from 'react';
 
-const initialBookmarks = [
-  {
-    title: 'React Homepage',
-    url: 'https://reactjs.org/',
-  },
-  {
-    title: 'Getting Started',
-    url: 'https://reactjs.org/docs/getting-started.html',
-  },
-];
+const url = 'https://jsonplaceholder.typicode.com/users';
 
-const getAsyncBookmarks = () =>
+// --------------------------------------------
+// !!! DO NOT MODIFY !!!
+// Fetch with Promise: This code fetches data 
+// from the given API endpoint using HTTP GET,
+// with a 3 sec delay before the request is sent
+// !!! DO NOT MODIFY !!!
+// --------------------------------------------
+const getUsersWithDelay = (url) =>
   new Promise(resolve =>
-    setTimeout(
-      () => resolve({ data: { bookmarks: initialBookmarks } }),
-      3000
-    )
+    setTimeout(() => {
+      resolve(fetch(url, {
+        method: 'GET',
+      }).then((response) => response.json()));
+    }, 3000)
   );
 
+// --------------------------------------------
+// App Component: entry point for your app. The
+// Effect forces this component rendering on 
+// initialization, which triggers the data fetch
+// promise to asynchronously set the users state
+// when data come back.
+//
+// TODO (A): Fill in the YOUR_CODE_HERE below
+// --------------------------------------------
 function App() {
 
-  const [bookmarks, setBookmarks] = React.useState([]);
-  const [isLoading, setIsLoading] = React.useState(false);
-  const [isError, setIsError] = React.useState(false);
+  const [users, setUsers] = React.useState([]);
+  const fetchUsers = () => getUsersWithDelay(url);
 
-  React.useEffect(() => {
-    setIsLoading(true);
-    getAsyncBookmarks().then(result => {
-      setBookmarks(result.data.bookmarks);
-      setIsLoading(false);
-    }).catch(()=> setIsError(true));
-  }, []);
+  React.useEffect(
+    () => {
+      fetchUsers().then(result => {
+        setUsers(result)
+      });
+    }, []);
 
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          {isError && <p>Erorr just happened ... </p>}          
-          {
-            isLoading ? (<p>Loading ...</p>) : <List links = {bookmarks} /> 
-          }
-        </p>
-      </header>
+    <div className="tables">
+      <UserTable users={YOUR_CODE_HERE} />
     </div>
   );
 }
 
-function List({links}) {
-  return links.map(item =>
-    <div><a href={item.url}>{item.title}</a></div>)
-}
+// --------------------------------------------
+// UserTable Component: renders a Table component
+// consisting of both Header, Row child components
+//
+// TODO (B): Fill in the YOUR_CODE_HERE section
+// --------------------------------------------
+const UserTable = (YOUR_CODE_HERE) => [
+  <Table
+    title="Users"
+    items={YOUR_CODE_HERE}
+    headerRender={Header}
+    rowRender={Row}
+  />
+];
 
+// --------------------------------------------
+// Table Component: renders the entire table by
+// mapping the data we retrieved into their 
+// respective rows in sequence (via Array.map())
+//
+// TODO (C): Fill in the YOUR_CODE_HERE section
+// --------------------------------------------
+const Table = (props) => (
+  <div>
+    <h2 className="title">{props.title}</h2>
+    <table className="table">
+      <thead>
+        {props.headerRender()}
+      </thead>
+      <tbody>
+        {YOUR_CODE_HERE.map(user => (
+          <tr key={user.id}>
+            <td>
+              <span>{user.id}</span>
+            </td>
+            <td>
+              <span>{user.name}</span>
+            </td>
+            <td>
+              <span>{user.email}</span>
+            </td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+);
+
+// --------------------------------------------
+// Row component: renders each row in the table
+//
+// TODO (D): Fill in all of the YOUR_CODE_HERE below
+// --------------------------------------------
+const Row = (YOUR_CODE_HERE) => (
+  <tr>
+    <td>
+      <span>{YOUR_CODE_HERE}</span>
+    </td>
+    <td>
+      <span>{YOUR_CODE_HERE}</span>
+    </td>
+    <td>
+      <span>{YOUR_CODE_HERE}</span>
+    </td>
+  </tr>
+);
+
+// --------------------------------------------
+// !!! DO NOT MODIFY !!!
+// Header component: renders the table's header
+// // !!! DO NOT MODIFY !!!
+// --------------------------------------------
+const Header = (props) => (
+  <tr>
+    <th>Id</th>
+    <th>Name</th>
+    <th>Email</th>
+  </tr>
+);
 
 export default App;
