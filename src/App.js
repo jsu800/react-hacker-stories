@@ -14,11 +14,7 @@ const initialBookmarks = [
 ];
 
 const getAsyncBookmarks = () =>
-  new Promise(resolve =>
-    setTimeout(
-      () => resolve({ data: { bookmarks: initialBookmarks } }),
-      3000
-    )
+  new Promise((resolve, reject) => setTimeout(reject, 3000)
   );
 
 const bookmarksReducer = (state, action) => {
