@@ -32,7 +32,7 @@ function App() {
     getAsyncBookmarks().then(result => {
       setBookmarks(result.data.bookmarks);
       setIsLoading(false);
-    }).catch(()=> setIsError(true));
+    }).catch(() => setIsError(true));
   }, []);
 
   return (
@@ -40,9 +40,9 @@ function App() {
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
-          {isError && <p>Erorr just happened ... </p>}          
+          {isError && <p>Erorr just happened ... </p>}
           {
-            isLoading ? (<p>Loading ...</p>) : <List links = {bookmarks} /> 
+            isLoading ? (<p>Loading ...</p>) : <List links={bookmarks} />
           }
         </p>
       </header>
@@ -50,7 +50,7 @@ function App() {
   );
 }
 
-function List({links}) {
+function List({ links }) {
   return links.map(item =>
     <div><a href={item.url}>{item.title}</a></div>)
 }
