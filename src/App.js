@@ -2,20 +2,7 @@ import logo from './logo.svg';
 import './App.css';
 import React from 'react';
 
-const initialBookmarks = [
-  {
-    title: 'React Homepage',
-    url: 'https://reactjs.org/',
-  },
-  {
-    title: 'Getting Started',
-    url: 'https://reactjs.org/docs/getting-started.html',
-  },
-];
-
-const getAsyncBookmarks = () =>
-  new Promise((resolve, reject) => setTimeout(reject, 3000)
-  );
+const bookmarksEndpoint = "https://hn.algolia.com/api/v1/search?query=";
 
 const bookmarksReducer = (state, action) => {
   switch (action.type) {
@@ -55,14 +42,19 @@ function App() {
   );
 
   React.useEffect(() => {
-    dispatchBookmarks({ type: 'BOOKMARKS_LOADING_INIT'})
-    getAsyncBookmarks().then(result => {
-      dispatchBookmarks({
-        type: 'BOOKMARKS_LOADING_SUCCESS',
-        payload: result.data.bookmarks,
-      });
-    }).catch(() => dispatchBookmarks({ type: 'BOOKMARKS_LOADING_FAILURE'})
-    );
+    dispatchBookmarks({ type: 'BOOKMARKS_LOADING_INIT' })
+    fetch(`${bookmarksEndpoint}react`)
+      .then(response => response.json())
+      .then(result => {
+        dispatchBookmarks({
+          type: 'BOOKMARKS_LOADING_SUCCESS',
+          payload: result.hits
+        });
+      }).catch(
+        () => dispatchBookmarks({
+          type: 'BOOKMARKS_LOADING_FAILURE'
+        })
+      );
   }, []);
 
   return (
