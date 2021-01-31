@@ -21,16 +21,32 @@ const getAsyncBookmarks = () =>
     )
   );
 
+const bookmarksReducer = (state, action) => {
+  switch (action.type) {
+    case 'SET_BOOKMARKS':
+      return action.payload;
+    default:
+      throw new Error();
+  }
+};
+
 function App() {
 
-  const [bookmarks, setBookmarks] = React.useState([]);
   const [isLoading, setIsLoading] = React.useState(false);
   const [isError, setIsError] = React.useState(false);
+
+  const [bookmarks, dispatchBookmarks] = React.useReducer(
+    bookmarksReducer,
+    []
+  );
 
   React.useEffect(() => {
     setIsLoading(true);
     getAsyncBookmarks().then(result => {
-      setBookmarks(result.data.bookmarks);
+      dispatchBookmarks({
+        type: 'SET_BOOKMARKS',
+        payload: result.data.bookmarks,
+      });
       setIsLoading(false);
     }).catch(() => setIsError(true));
   }, []);
