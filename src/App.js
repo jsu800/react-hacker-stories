@@ -50,10 +50,8 @@ const App = () => {
 
   React.useEffect(() => {
 
-    if (!checkTerm) return;
-
     dispatchBookmarks({ type: 'BOOKMARKS_LOADING_INIT' })
-    fetch(`${bookmarksEndpoint}${checkTerm}`)
+    fetch(`${bookmarksEndpoint}react`)
       .then(response => response.json())
       .then(result => {
         dispatchBookmarks({
@@ -65,7 +63,7 @@ const App = () => {
           type: 'BOOKMARKS_LOADING_FAILURE'
         })
       );
-  }, [checkTerm]);
+  }, []);
 
   return (
     <div className="App">
@@ -90,29 +88,6 @@ const App = () => {
       </header>
     </div>
   );
-
-  // return (
-  //   <div className="App">
-  //     <header className="App-header">
-  //       <img src={logo} className="App-logo" alt="logo" />
-  //       <p>
-  //         {/* creating/instantiating an instance of List component */}
-  //         <List first={hello_world} second={react_rocks} />
-  //       </p>
-  //       <p>
-  //         <Input
-  //           id="check"
-  //           value="Checking for "
-  //           onInput={handleInput}
-  //           userInput={checkTerm}
-  //         >
-  //           <b>Check: </b>
-  //         </Input>
-  //       </p>
-  //     </header>
-  //   </div>
-  // );
-
 };
 
 const Input = ({ id, value, type = 'text', onInput, userInput, children }) => (
