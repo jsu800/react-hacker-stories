@@ -2,23 +2,33 @@ import logo from './logo.svg';
 import './App.css';
 import React from 'react';
 
-class Sentence {
-  constructor(word1, word2) {
-    this.word1 = word1;
-    this.word2 = word2;
+const bookmarksEndpoint = "https://hn.algolia.com/api/v1/search?query=";
+
+const bookmarksReducer = (state, action) => {
+  switch (action.type) {
+    case 'BOOKMARKS_LOADING_INIT':
+      return {
+        ...state,
+        isLoading: true,
+        isError: false
+      };
+    case "BOOKMARKS_LOADING_SUCCESS":
+      return {
+        ...state,
+        isLoading: false,
+        isError: false,
+        data: action.payload
+      };
+    case "BOOKMARKS_LOADING_FAILURE":
+      return {
+        ...state,
+        isLoading: false,
+        isError: true
+      };
+    default:
+      throw new Error();
   }
-
-  getSentence() {
-    return this.word1 + ' ' + this.word2;
-  }
-}
-
-// function declaration 
-// function name() {...}
-
-// arrow function: 
-// const name() => { ... } 
-
+};
 
 const App = () => {
 
@@ -27,29 +37,40 @@ const App = () => {
     console.log(evt.target.value);
   };
 
-  const hello_world = new Sentence('Hello', 'World!');
-  const react_rocks = new Sentence('React', 'rocks!');
+  const [checkTerm, setCheckTerm] = React.useState([]);
 
-  const [checkTerm, setCheckTerm] = React.useState(
-    localStorage.getItem("input") || "nothing"
+  const [bookmarks, dispatchBookmarks] = React.useReducer(
+    bookmarksReducer,
+    {
+      data: [],
+      isLoading: false,
+      isError: false
+    }
   );
 
-  React.useEffect(
-    () => {
-      localStorage.setItem("input", checkTerm);
-    },
-    [checkTerm]
-  );
+  React.useEffect(() => {
 
+    if (!checkTerm) return;
+
+    dispatchBookmarks({ type: 'BOOKMARKS_LOADING_INIT' })
+    fetch(`${bookmarksEndpoint}${checkTerm}`)
+      .then(response => response.json())
+      .then(result => {
+        dispatchBookmarks({
+          type: 'BOOKMARKS_LOADING_SUCCESS',
+          payload: result.hits
+        });
+      }).catch(
+        () => dispatchBookmarks({
+          type: 'BOOKMARKS_LOADING_FAILURE'
+        })
+      );
+  }, [checkTerm]);
 
   return (
     <div className="App">
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          {/* creating/instantiating an instance of List component */}
-          <List first={hello_world} second={react_rocks} />
-        </p>
         <p>
           <Input
             id="check"
@@ -60,9 +81,37 @@ const App = () => {
             <b>Check: </b>
           </Input>
         </p>
+        <p>
+          {bookmarks.isError && <p>Erorr just happened ... </p>}
+          {
+            bookmarks.isLoading ? (<p>Loading ...</p>) : <List links={bookmarks} />
+          }
+        </p>
       </header>
     </div>
   );
+
+  // return (
+  //   <div className="App">
+  //     <header className="App-header">
+  //       <img src={logo} className="App-logo" alt="logo" />
+  //       <p>
+  //         {/* creating/instantiating an instance of List component */}
+  //         <List first={hello_world} second={react_rocks} />
+  //       </p>
+  //       <p>
+  //         <Input
+  //           id="check"
+  //           value="Checking for "
+  //           onInput={handleInput}
+  //           userInput={checkTerm}
+  //         >
+  //           <b>Check: </b>
+  //         </Input>
+  //       </p>
+  //     </header>
+  //   </div>
+  // );
 
 };
 
@@ -74,15 +123,9 @@ const Input = ({ id, value, type = 'text', onInput, userInput, children }) => (
   </>
 );
 
-const List = props => {
-  return (
-    <div>
-      {props.first.getSentence()}
-      <hr />
-      {props.second.getSentence()}
-    </div>
-  );
-};
-
+function List({ links }) {
+  return links.data.map(item =>
+    <div><a href={item.url}>{item.title}</a></div>)
+}
 
 export default App;
