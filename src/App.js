@@ -50,8 +50,10 @@ const App = () => {
 
   React.useEffect(() => {
 
+    if (!checkTerm) return;
+
     dispatchBookmarks({ type: 'BOOKMARKS_LOADING_INIT' })
-    fetch(`${bookmarksEndpoint}react`)
+    fetch(`${bookmarksEndpoint}${checkTerm}`)
       .then(response => response.json())
       .then(result => {
         dispatchBookmarks({
@@ -63,7 +65,7 @@ const App = () => {
           type: 'BOOKMARKS_LOADING_FAILURE'
         })
       );
-  }, []);
+  }, [checkTerm]);
 
   return (
     <div className="App">
