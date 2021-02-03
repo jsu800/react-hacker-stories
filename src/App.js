@@ -49,7 +49,7 @@ function App() {
 
 // --------------------------------------------
 // UserTable Component: renders a Table component
-// consisting of both Header, Row child components
+// consisting of a Header child component
 //
 // TODO (B): Fill in the YOUR_CODE_HERE section
 // --------------------------------------------
@@ -58,7 +58,6 @@ const UserTable = (YOUR_CODE_HERE) => [
     title="Users"
     items={YOUR_CODE_HERE}
     headerRender={Header}
-    rowRender={Row}
   />
 ];
 
@@ -93,25 +92,6 @@ const Table = (props) => (
       </tbody>
     </table>
   </div>
-);
-
-// --------------------------------------------
-// Row component: renders each row in the table
-//
-// TODO (D): Fill in all of the YOUR_CODE_HERE below
-// --------------------------------------------
-const Row = (YOUR_CODE_HERE) => (
-  <tr>
-    <td>
-      <span>{YOUR_CODE_HERE}</span>
-    </td>
-    <td>
-      <span>{YOUR_CODE_HERE}</span>
-    </td>
-    <td>
-      <span>{YOUR_CODE_HERE}</span>
-    </td>
-  </tr>
 );
 
 // --------------------------------------------
