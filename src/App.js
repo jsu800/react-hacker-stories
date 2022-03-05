@@ -1,6 +1,7 @@
 import logo from './logo.svg';
 import './App.css';
 import React from 'react';
+import axios from 'axios';
 
 const bookmarksEndpoint = "https://hn.algolia.com/api/v1/search?query=";
 
@@ -55,12 +56,11 @@ const App = () => {
     if (!checkTerm) return;
 
     dispatchBookmarks({ type: 'BOOKMARKS_LOADING_INIT' })
-    fetch(url)
-      .then(response => response.json())
+    axios.get(url)
       .then(result => {
         dispatchBookmarks({
           type: 'BOOKMARKS_LOADING_SUCCESS',
-          payload: result.hits
+          payload: result.data.hits
         });
       }).catch(
         () => dispatchBookmarks({
