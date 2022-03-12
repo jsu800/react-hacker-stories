@@ -71,33 +71,22 @@ const App = () => {
     
   }, [url]);
 
-  const handleInputSubmit = () => {
+  const handleInputSubmit = event => {
     setUrl(`${bookmarksEndpoint}${checkTerm}`);
+    event.preventDefault();
   };
 
   return (
     <div className="App">
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          <Input
-            id="check"
-            value="Checking for "
-            onInput={handleInput}
-            userInput={checkTerm}
-          >
-            <b>Check: </b>
-          </Input>
-        </p>
-        <p>
-          <button
-            type="button"
-            disabled={!checkTerm}
-            onClick={handleInputSubmit}
-          >
-            Submit
-          </button>
-        </p>
+        
+        <MyForm 
+          term = {checkTerm}
+          onFormInput = {handleInput}
+          onFormSubmit = {handleInputSubmit}
+        />
+        
         <p>
           {bookmarks.isError && <p>Erorr just happened ... </p>}
           {
@@ -108,6 +97,29 @@ const App = () => {
     </div>
   );
 };
+
+const MyForm = ({
+  term, 
+  onFormInput,
+  onFormSubmit
+}) => (
+  <form onSubmit = {onFormSubmit}>
+    <Input
+      id="check"
+      value="Checking for "
+      onInput={onFormInput}
+      userInput={term}
+    >
+      <b>Check: </b>
+    </Input>
+    <button
+      type="submit"
+      disabled={!term}        
+    >
+      Submit
+    </button>
+  </form>
+);
 
 const Input = ({ id, value, type = 'text', onInput, userInput, children }) => (
   <>
