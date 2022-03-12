@@ -51,22 +51,24 @@ const App = () => {
     }
   );
 
-  React.useEffect(() => {
+  React.useEffect(async() => {
 
     if (!checkTerm) return;
 
-    dispatchBookmarks({ type: 'BOOKMARKS_LOADING_INIT' })
-    axios.get(url)
-      .then(result => {
-        dispatchBookmarks({
-          type: 'BOOKMARKS_LOADING_SUCCESS',
-          payload: result.data.hits
-        });
-      }).catch(
-        () => dispatchBookmarks({
-          type: 'BOOKMARKS_LOADING_FAILURE'
-        })
-      );
+    dispatchBookmarks({ type: 'BOOKMARKS_LOADING_INIT' })    
+
+    try {
+      const result = await axios.get(url);
+      dispatchBookmarks({
+        type: 'BOOKMARKS_LOADING_SUCCESS',
+        payload: result.data.hits
+      });
+    } catch {
+      dispatchBookmarks({
+        type: 'BOOKMARKS_LOADING_FAILURE'
+      });
+    }
+    
   }, [url]);
 
   const handleInputSubmit = () => {
