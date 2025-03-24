@@ -15,7 +15,7 @@ export default [
     {
         id: 2,
         title: "Avocado Farms",
-        description: "Interested in becoming a wedding photographer? For beginner and experienced photographers alike, join us in learning techniques required to leave the happy couple with memories that'll last a lifetime.",
+        description: "The avocado is a creamy, nutrient-rich fruit native to Central and South America. Packed with healthy fats and vitamins, it is prized for its versatility in salads, spreads, and smoothies.",
         price: 1.50,
         coverImg: "avocado.jpg",
         stats: {
